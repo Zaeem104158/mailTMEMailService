@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:stitbd_task/utils/constants.dart';
+import 'package:stitbd_task/utils/shared_pref.dart';
 import 'dart:math' as math;
 
 import 'package:stitbd_task/utils/size_config.dart';
 import 'package:stitbd_task/utils/style.dart';
+
+import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -12,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(20),
       width: SizeConfig.getScreenWidth(context) - 20,
-      height: SizeConfig.getScreenHeight(context) - 20,
+      height: 150,
       alignment: Alignment.center,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -27,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         child: Container(
           width: SizeConfig.getScreenWidth(context) - 30,
-          height: SizeConfig.getScreenHeight(context) - 30,
+          height: 140,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             color: Colors.white,
@@ -35,18 +40,25 @@ class ProfileScreen extends StatelessWidget {
           alignment: Alignment.center,
           child: Padding(
             padding: const EdgeInsets.all(4),
-            child: ListView.builder(
-                itemCount: 16,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(30.0)),
-                    child: const ListTile(
-                      title: Text("data"),
-                    ),
-                  );
-                }),
+            child: Column(
+              children: [
+                const ListTile(
+                  title: Text("Email"),
+                  leading: Icon(Icons.email),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    await SharedPref.remove("keyJwtToken");
+                    Get.offAll(() => const LoginScreen(),
+                        transition: sendTransition);
+                  },
+                  child: const ListTile(
+                    title: Text("Logout"),
+                    leading: Icon(Icons.logout),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

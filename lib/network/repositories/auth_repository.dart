@@ -1,3 +1,5 @@
+import 'package:stitbd_task/models/signup_response.dart';
+
 import '../../models/common_responses/common/common_response.dart';
 import '../../models/login_response.dart';
 import '../../utils/constants.dart';
@@ -25,14 +27,14 @@ class AuthRepository {
     });
   }
 
-  // void forgotPassword(Map<String, dynamic> request,
-  //     ResponseCallback<CommonResponse?, String?> callback) {
-  //   _apiClient.postRequest(forgetPasswordEndpoint, request, (response, error) {
-  //     if (response != null) {
-  //       callback(CommonResponse.fromJson(response), null);
-  //     } else {
-  //       callback(null, error);
-  //     }
-  //   });
-  // }
+  void signUp(Map<String, dynamic> request,
+      ResponseCallback<SignUpResponse?, String?> callback) {
+    _apiClient.postRequest(signupEndpoint, request, (response, error) {
+      if (response != null) {
+        callback(SignUpResponse.fromJson(response), null);
+      } else {
+        callback(null, error);
+      }
+    });
+  }
 }

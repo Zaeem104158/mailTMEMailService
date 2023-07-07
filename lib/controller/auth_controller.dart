@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:stitbd_task/models/login_response.dart';
 
 import 'package:stitbd_task/view/dashboard_screen.dart';
+import 'package:stitbd_task/view/login_screen.dart';
 import '../network/repositories/auth_repository.dart';
 import '../utils/constants.dart';
 import '../utils/shared_pref.dart';
@@ -33,6 +34,25 @@ class AuthController extends GetxController {
 
       if (response != null) {
         _saveJWTTokenLocally(response);
+      } else {
+        showMessage("Something went wrong: $error");
+      }
+    });
+  }
+
+  void signUp() {
+    loading();
+
+    var request = {
+      "address": loginEmailObs.value,
+      "password": loginPasswordObs.value
+    };
+
+    _authRepository.signUp(request, (response, error) {
+      dismissLoading();
+
+      if (response != null) {
+        Get.offAll(() => const LoginScreen(), transition: sendTransition);
       } else {
         showMessage("Something went wrong: $error");
       }

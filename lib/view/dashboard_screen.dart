@@ -42,6 +42,13 @@ class _DashBoardScreenState extends State<DashBoardScreen>
   }
 
   @override
+  void dispose() {
+    _controller.stop();
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final uiController = Get.put(UiController());
     return WillPopScope(

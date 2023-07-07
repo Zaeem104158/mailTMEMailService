@@ -1,14 +1,12 @@
 // ignore_for_file: unused_element
 
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:stitbd_task/utils/shared_pref.dart';
 import '../models/common_responses/error/error_response.dart';
 import '../utils/constants.dart';
-import '../utils/endpoints.dart';
 import '../utils/environment.dart';
 
 class ApiClient {
@@ -31,52 +29,14 @@ class ApiClient {
       final apiResponse = await client.post(url, data: request);
       final responseData = apiResponse.data;
 
-      if (apiResponse.statusCode == 200) {
+      if (apiResponse.statusCode == 200 || apiResponse.statusCode == 201) {
         callback(responseData, null);
       } else {
         callback(null, responseData.toString());
       }
-
-      // if (responseData is Map<String, dynamic> || responseData is List) {
-      //   if (checkStatusCodeOnly) {
-      //     callback(responseData, null);
-      //   } else {
-      //     _getActualResponse(
-      //         responseData, (response, error) => callback(response, error),
-      //     );
-      //   }
-      // } else {
-      //   callback(null, _getErrorMessage(apiResponse));
-      // }
     } on DioError catch (e) {
       log("dio error${e.message}");
 
-      callback(null, _getDioErrorResponse(e));
-    } on FormatException catch (e) {
-      callback(null, e.toString());
-    } catch (e) {
-      callback(null, e.toString());
-    }
-  }
-
-  void putRequest(String url, Map<String, dynamic> request,
-      ResponseCallback<dynamic, String?> callback,
-      {bool checkStatusCodeOnly = false}) async {
-    try {
-      final apiResponse = await client.put(url, data: request);
-      final responseData = apiResponse.data;
-
-      if (responseData is Map<String, dynamic> || responseData is List) {
-        if (checkStatusCodeOnly) {
-          callback(responseData, null);
-        } else {
-          _getActualResponse(
-              responseData, (response, error) => callback(response, error));
-        }
-      } else {
-        callback(null, _getErrorMessage(apiResponse));
-      }
-    } on DioError catch (e) {
       callback(null, _getDioErrorResponse(e));
     } on FormatException catch (e) {
       callback(null, e.toString());
@@ -89,32 +49,6 @@ class ApiClient {
       {bool checkStatusCodeOnly = false}) async {
     try {
       final apiResponse = await client.delete(url);
-      final responseData = apiResponse.data;
-
-      if (responseData is Map<String, dynamic> || responseData is List) {
-        if (checkStatusCodeOnly) {
-          callback(responseData, null);
-        } else {
-          _getActualResponse(
-              responseData, (response, error) => callback(response, error));
-        }
-      } else {
-        callback(null, _getErrorMessage(apiResponse));
-      }
-    } on DioError catch (e) {
-      callback(null, _getDioErrorResponse(e));
-    } on FormatException catch (e) {
-      callback(null, e.toString());
-    } catch (e) {
-      callback(null, e.toString());
-    }
-  }
-
-  void patchRequest(String url, Map<String, dynamic> request,
-      ResponseCallback<dynamic, String?> callback,
-      {bool checkStatusCodeOnly = false}) async {
-    try {
-      final apiResponse = await client.patch(url, data: request);
       final responseData = apiResponse.data;
 
       if (responseData is Map<String, dynamic> || responseData is List) {
@@ -233,9 +167,8 @@ class ApiClient {
                     error: "internet_connectivity_problem"),
                 true);
           }
-
-          if (isJwtTokenNeeded(options.path)) {
-            var token = await SharedPref.read(keyJwtToken);
+          var token = await SharedPref.read(keyJwtToken);
+          if (token != null) {
             options.headers.addAll({
               "Authorization": "Bearer $token",
             });
@@ -306,14 +239,6 @@ class ApiClient {
     }
 
     return _dio;
-  }
-
-  bool isJwtTokenNeeded(String path) {
-    if (path.contains(loginEndpoint)) {
-      return false;
-    }
-
-    return true;
   }
 }
 

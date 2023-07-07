@@ -34,13 +34,6 @@ class UserController extends GetxController {
   void getUserInfo(String? source) {
     _userRepository.getUserMeAPI(getUserMeEndPoint, (response, error) {
       if (response != null) {
-        // userName.value = response.name ?? "";
-        // userEmail.value = response.email ?? "";
-        // userCompany.value = response.organisation?.name;
-
-        // editedUserNameController.text = response.name ?? "";
-        // editedUserPhoneController.text = response.phone ?? "";
-
         if (source == "splash") {
           Future.delayed(const Duration(milliseconds: 1000), () {
             Get.offAll(() => const DashBoardScreen(),

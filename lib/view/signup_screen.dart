@@ -1,6 +1,5 @@
 import 'package:stitbd_task/components/text_form_field_component.dart';
 import 'package:stitbd_task/controller/auth_controller.dart';
-import 'package:stitbd_task/view/signup_screen.dart';
 import '../../base/base_state.dart';
 import '../../components/button_component.dart';
 import '../../components/password_text_form_field_component.dart';
@@ -11,16 +10,16 @@ import '../../utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends BaseState<LoginScreen> {
+class _SignUpScreenState extends BaseState<SignUpScreen> {
   late Rxn<String?> email, password;
   final _authController = Get.put(AuthController());
   final textController = TextEditingController();
@@ -63,7 +62,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
                         height: 32,
                       ),
                       const TextComponent(
-                        'Sign In',
+                        'Sign Up',
                         fontWeight: titleFontWeight,
                         fontSize: largestFontSize,
                         color: kTextColor,
@@ -137,43 +136,14 @@ class _LoginScreenState extends BaseState<LoginScreen> {
                       ),
                       Obx(
                         () => ButtonComponent(
-                          text: "Sign In",
+                          text: "Sign Up",
                           padding: const EdgeInsets.fromLTRB(28, 24, 28, 8),
                           onPressed: isBlank([email.value, password.value])
                               ? null
                               : () {
-                                  _authController.login();
+                                  _authController.signUp();
                                 },
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextComponent(
-                            "Don't you have an account?",
-                            fontSize: textSmallFontSize,
-                            fontWeight: mediumFontWeight,
-                            font: latoFont,
-                            color: kSecondaryColor,
-                            padding: const EdgeInsets.fromLTRB(28, 22, 0, 20),
-                            onPressed: () async {
-                              Get.offAll(() => const SignUpScreen(),
-                                  transition: sendTransition);
-                            },
-                          ),
-                          TextComponent(
-                            "Click Here",
-                            fontSize: textSmallFontSize,
-                            fontWeight: mediumFontWeight,
-                            font: latoFont,
-                            color: kSecondaryColor,
-                            padding: const EdgeInsets.fromLTRB(0, 22, 28, 20),
-                            onPressed: () async {
-                              Get.offAll(() => const SignUpScreen(),
-                                  transition: sendTransition);
-                            },
-                          ),
-                        ],
                       ),
                     ],
                   ),
