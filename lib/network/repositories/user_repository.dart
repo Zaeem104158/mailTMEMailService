@@ -14,7 +14,6 @@ class UserRepository {
   }
 
   //Get user repository
-
   void getUserMeAPI(
       String url, ResponseCallback<UserMeResponse?, String?> callback) {
     _apiClient.getRequest(url, (response, error) {
@@ -25,27 +24,4 @@ class UserRepository {
       }
     });
   }
-
-//Update user repository
-  // void updateUserMeAPI(url, Map<String, dynamic> request,
-  //     ResponseCallback<UpdateProfileResponse?, String?> callback) {
-  //   _apiClient.patchRequest(url, request, (response, error) {
-  //     if (response != null) {
-  //       callback(UpdateProfileResponse.fromJson(response), null);
-  //     } else {
-  //       callback(null, error);
-  //     }
-  //   });
-  // }
-
-  // void createContactAPI(Map<String, dynamic> request,
-  //     ResponseCallback<ContactResponse?, String?> callback) {
-  //   _apiClient.postRequest(createContactEndPoints, request, (response, error) {
-  //     if (response != null) {
-  //       callback(ContactResponse.fromJson(response), null);
-  //     } else {
-  //       callback(null, error);
-  //     }
-  //   });
-  // }
 }

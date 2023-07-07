@@ -8,19 +8,8 @@ import 'package:stitbd_task/view/login_screen.dart';
 
 class UserController extends GetxController {
   late final UserRepository _userRepository;
-  var userName = Rxn<String?>();
+
   var userEmail = Rxn<String?>();
-  var userPhone = Rxn<String?>();
-  var userCompany = Rxn<String?>();
-
-  final editedUserNameController = TextEditingController(text: "");
-  final editedUserPhoneController = TextEditingController(text: "");
-
-  var contactName = Rxn<String?>();
-  var contactPhone = Rxn<String?>();
-  var contactCompany = Rxn<String?>();
-  var contactEmail = Rxn<String?>();
-  var contactId = Rxn<String?>();
 
   List<String> contactList = [];
 
@@ -34,6 +23,7 @@ class UserController extends GetxController {
   void getUserInfo(String? source) {
     _userRepository.getUserMeAPI(getUserMeEndPoint, (response, error) {
       if (response != null) {
+        userEmail.value = response.address;
         if (source == "splash") {
           Future.delayed(const Duration(milliseconds: 1000), () {
             Get.offAll(() => const DashBoardScreen(),
@@ -45,54 +35,4 @@ class UserController extends GetxController {
       }
     });
   }
-
-  //Update user controller
-  // void updateUserInfo() {
-  //   Map<String, dynamic> updateUser = {
-  //     "name": editedUserNameController.text,
-  //     "phone": editedUserPhoneController.text,
-  //   };
-
-  //   _userRepository.updateUserMeAPI(getUserInfoEndPoint, updateUser,
-  //       (response, error) {
-  //     if (response != null) {
-  //       //getUserInfo();
-  //       showMessage("Successfully update user", isInfo: true);
-  //     } else {
-  //       showMessage("Something went wrong");
-  //     }
-  //   });
-  // }
-
-  // void callCreateContact() {
-  //   loading();
-
-  //   CreateContactParam _createContactParam = CreateContactParam();
-
-  //   _createContactParam.name = contactName.value;
-  //   _createContactParam.email = contactEmail.value;
-  //   _createContactParam.phone = contactPhone.value;
-  //   _createContactParam.company = contactCompany.value;
-
-  //   if (contactId.value != null) {
-  //     contactList.add(contactId.value!);
-  //   }
-
-  //   _createContactParam.assignedToUserIds = contactList;
-
-  //   _userRepository.createContactAPI(_createContactParam.toJson(),
-  //       (response, error) {
-  //     dismissLoading();
-
-  //     if (response != null) {
-  //       showMessage("Contact has added successfully", isToast: true);
-  //       _createContactParam.assignedToUserIds?.clear();
-  //       contactList.clear();
-  //     } else {
-  //       showMessage("Something went wrong: $error");
-  //       _createContactParam.assignedToUserIds?.clear();
-  //       contactList.clear();
-  //     }
-  //   });
-  // }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stitbd_task/controller/user_controller.dart';
+import 'package:stitbd_task/models/user_info_response.dart';
 import 'package:stitbd_task/utils/constants.dart';
 import 'package:stitbd_task/utils/shared_pref.dart';
 import 'dart:math' as math;
@@ -14,6 +16,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userController = Get.put(UserController());
     return Container(
       margin: const EdgeInsets.all(20),
       width: SizeConfig.getScreenWidth(context) - 20,
@@ -42,9 +45,9 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.all(4),
             child: Column(
               children: [
-                const ListTile(
-                  title: Text("Email"),
-                  leading: Icon(Icons.email),
+                ListTile(
+                  title: Text(_userController.userEmail.value ?? ""),
+                  leading: const Icon(Icons.email),
                 ),
                 GestureDetector(
                   onTap: () async {
