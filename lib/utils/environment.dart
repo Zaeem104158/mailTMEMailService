@@ -5,7 +5,7 @@ enum Environment {
   PRODUCTION,
 }
 
-const Environment activeProfile = Environment.STAGING;
+const Environment activeProfile = Environment.PRODUCTION;
 
 String getBaseUrl() {
   switch (activeProfile) {
@@ -13,7 +13,7 @@ String getBaseUrl() {
       return "https://api.mail.tm";
 
     case Environment.PRODUCTION:
-      return "";
+      return "https://api.mail.tm";
   }
 }
 

@@ -155,7 +155,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
                             fontWeight: mediumFontWeight,
                             font: latoFont,
                             color: kSecondaryColor,
-                            padding: const EdgeInsets.fromLTRB(28, 22, 0, 20),
+                            padding: const EdgeInsets.fromLTRB(0, 22, 0, 20),
                             onPressed: () async {
                               Get.offAll(() => const SignUpScreen(),
                                   transition: sendTransition);
