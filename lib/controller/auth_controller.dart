@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:stitbd_task/controller/user_controller.dart';
 import 'package:stitbd_task/models/login_response.dart';
 
 import 'package:stitbd_task/view/dashboard_screen.dart';
@@ -31,8 +32,9 @@ class AuthController extends GetxController {
 
     _authRepository.login(request, (response, error) {
       dismissLoading();
-
+      final userController = Get.put(UserController());
       if (response != null) {
+        // userController.getUserInfo("login");
         _saveJWTTokenLocally(response);
       } else {
         showMessage("Something went wrong: $error");

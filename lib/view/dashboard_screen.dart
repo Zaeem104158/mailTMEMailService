@@ -89,7 +89,6 @@ class _DashBoardScreenState extends State<DashBoardScreen>
           body: Container(
             child: Stack(
               children: [
-                // AnimatedBackground(_animation),
                 Obx(
                   () => screens[
                       uiController.bottomNavigationControlSelectedIndex.value],

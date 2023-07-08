@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:stitbd_task/controller/user_controller.dart';
 import 'package:stitbd_task/utils/shared_pref.dart';
+import 'package:stitbd_task/view/dashboard_screen.dart';
 import 'package:stitbd_task/view/login_screen.dart';
 
 import '../../base/base_state.dart';
@@ -24,9 +25,9 @@ class _SplashScreenState extends BaseState<SplashScreen> {
       var jwt = await SharedPref.read("keyJwtToken");
 
       final userController = Get.put(UserController());
-
+      userController.getUserInfo();
       if (jwt != null) {
-        userController.getUserInfo("splash");
+        Get.offAll(() => const DashBoardScreen(), transition: sendTransition);
       } else {
         Get.offAll(() => const LoginScreen(), transition: sendTransition);
       }
