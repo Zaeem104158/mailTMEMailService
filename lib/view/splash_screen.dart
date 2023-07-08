@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:stitbd_task/controller/user_controller.dart';
 import 'package:stitbd_task/utils/shared_pref.dart';
+import 'package:stitbd_task/utils/style.dart';
 import 'package:stitbd_task/view/dashboard_screen.dart';
 import 'package:stitbd_task/view/login_screen.dart';
 
@@ -55,9 +56,8 @@ class _SplashScreenState extends BaseState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(48.0),
-      child: Text("Hello Dev"),
+    return Container(
+      color: kPreliminaryColor,
     );
   }
 

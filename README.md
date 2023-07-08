@@ -21,7 +21,8 @@ samples, guidance on mobile development, and a full API reference.
 4. Tween Animation is done.
 5. Dio is used for apis request.
 6. Offline caching is used for jwk token.
-7.   List of packages: [google_fonts: ^2.1.0, get: ^4.3.8, dio: ^4.0.0 ,flutter_easyloading: ^3.0.3 ,connectivity_plus: ^2.0.3 ,shared_preferences: ^2.0.15]
+7. List of packages: [google_fonts: ^2.1.0, get: ^4.3.8, dio: ^4.0.0 ,flutter_easyloading: ^3.0.3 ,connectivity_plus: ^2.0.3 ,shared_preferences: ^2.0.15]
 8. App link: [https://drive.google.com/drive/folders/15CKcjlI16awhHkEmP7S4BH2UDUKqnt8l?usp=sharing]
 9. Screen shoot link : [https://github.com/Zaeem104158/mailTMEMailService/tree/main/screenShoot]
-
+10. Use this [address : z00@exelica.com and password: 123456] 
+    or create your address then mail to the created address then you will show the fetched mails
