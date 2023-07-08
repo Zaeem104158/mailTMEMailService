@@ -51,78 +51,82 @@ class _MailScreenState extends State<MailScreen> {
             ),
             alignment: Alignment.center,
             child: Padding(
-                padding: const EdgeInsets.all(4),
-                child: Obx(
-                  () => controller.totalItems.value != null
-                      ? ListView.separated(
-                          itemCount: controller.totalItems.value!,
-                          separatorBuilder: (context, index) {
-                            return const Divider(
-                              color: kPrimaryColor,
-                              thickness: 2,
-                            );
-                          },
-                          itemBuilder: (context, index) {
-                            var mails = controller.mails[index];
-                            return ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.primaries[
-                                    Random().nextInt(Colors.primaries.length)],
-                                child: TextComponent(
-                                  _getInitials(
-                                    mails.from.name,
-                                  ),
-                                  padding: const EdgeInsets.all(4),
-                                  fontSize: 10,
-                                ),
+              padding: const EdgeInsets.all(4),
+              child: controller.totalItems.value != null
+                  ? ListView.separated(
+                      itemCount: controller.totalItems.value!,
+                      separatorBuilder: (context, index) {
+                        return const Divider(
+                          color: kPrimaryColor,
+                          thickness: 2,
+                        );
+                      },
+                      itemBuilder: (context, index) {
+                        var mails = controller.mails[index];
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.primaries[
+                                Random().nextInt(Colors.primaries.length)],
+                            child: TextComponent(
+                              _getInitials(
+                                mails.from.name,
                               ),
-                              title: Row(
+                              padding: const EdgeInsets.all(4),
+                              fontSize: 10,
+                            ),
+                          ),
+                          title: Row(
+                            children: [
+                              TextComponent(
+                                padding: const EdgeInsets.all(4),
+                                mails.from.name,
+                                fontSize: 10,
+                              ),
+                            ],
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
+                                  const Icon(Icons.email),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
                                   TextComponent(
-                                    padding: const EdgeInsets.all(4),
-                                    mails.from.name,
+                                    mails.from.address,
                                     fontSize: 10,
+                                    padding: const EdgeInsets.all(4),
                                   ),
                                 ],
                               ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.email),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      TextComponent(
-                                        mails.from.address,
-                                        fontSize: 10,
-                                        padding: const EdgeInsets.all(4),
-                                      ),
-                                    ],
-                                  ),
-                                  TextComponent(
-                                    "Subject: ${mails.subject}",
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    padding: const EdgeInsets.all(4),
-                                  ),
-                                  TextComponent(
-                                    mails.intro,
-                                    fontSize: 10,
-                                    padding: const EdgeInsets.all(4),
-                                    textAlign: TextAlign.start,
-                                  )
-                                ],
+                              TextComponent(
+                                "Subject: ${mails.subject}",
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                padding: const EdgeInsets.all(4),
                               ),
-                            );
-                          },
-                        )
-                      : NoDataFoundCard(
-                          onPressed: () {},
-                          title: "No data found yet",
-                        ),
-                )),
+                              TextComponent(
+                                "Mail: ${mails.intro}",
+                                fontSize: 10,
+                                padding: const EdgeInsets.all(4),
+                                textAlign: TextAlign.start,
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    )
+                  : NoDataFoundCard(
+                      onPressed: () {
+                        final mailController = Get.put(MailController());
+                        mailController.getMail();
+                        setState(() {});
+                      },
+                      title: "No data found yet",
+                      searchKey: "Reload",
+                    ),
+            ),
           ),
         ),
       );

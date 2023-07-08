@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stitbd_task/base/base_state.dart';
 import 'package:stitbd_task/controller/user_controller.dart';
-import 'package:stitbd_task/models/user_info_response.dart';
 import 'package:stitbd_task/utils/constants.dart';
 import 'package:stitbd_task/utils/shared_pref.dart';
-import 'dart:math' as math;
 
 import 'package:stitbd_task/utils/size_config.dart';
 import 'package:stitbd_task/utils/style.dart';
 
 import 'login_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    final userController = Get.put(UserController());
+    userController.getUserInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UserController>(builder: (controller) {
-      controller.getUserInfo();
       return Container(
         margin: const EdgeInsets.all(20),
         width: SizeConfig.getScreenWidth(context) - 20,
